@@ -41,8 +41,8 @@ Ikuti langkah-langkah berikut untuk menjalankan project di komputer lokal:
 ### 1. Clone Repository
 
 ```bash
-git clone [https://github.com/USERNAME_GITHUB_ANDA/NAMA_REPO_ANDA.git]()
-cd
+git clone https://github.com/N4CHT0/tes-fastprint.git
+cd tes-fastprint
 ```
 
 ### 2. Setup Virtual Environment
