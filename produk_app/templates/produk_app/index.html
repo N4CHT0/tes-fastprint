@@ -1,0 +1,119 @@
+{% extends 'produk_app/base.html' %} {% block content %}
+<div class="row justify-content-center">
+  <div class="col-12">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div>
+        <h3 class="fw-bold mb-0">Daftar Produk</h3>
+        <p class="text-muted mb-0">Manage inventory barang siap jual</p>
+      </div>
+      <a href="{% url 'tambah' %}" class="btn btn-primary shadow-sm">
+        <i class="bi bi-plus-lg me-1"></i> Tambah Produk
+      </a>
+    </div>
+
+    <div class="card">
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="bg-light text-secondary">
+              <tr>
+                <th class="ps-4 py-3">ID</th>
+                <th>Nama Produk</th>
+                <th>Kategori</th>
+                <th>Harga</th>
+                <th>Status</th>
+                <th class="text-end pe-4">Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for p in produk_list %}
+              <tr>
+                <td class="ps-4 fw-bold text-muted">#{{ p.id_produk }}</td>
+                <td class="fw-medium text-dark">{{ p.nama_produk }}</td>
+                <td>
+                  <span
+                    class="badge bg-info bg-opacity-10 text-info border border-info rounded-pill px-3"
+                  >
+                    {{ p.kategori.nama_kategori }}
+                  </span>
+                </td>
+                <td class="fw-bold text-success">
+                  Rp {{ p.harga|floatformat:0 }}
+                </td>
+                <td>
+                  <span
+                    class="d-inline-flex align-items-center badge bg-success bg-opacity-10 text-success border border-success rounded-pill px-3 py-2"
+                  >
+                    <span
+                      class="me-2 rounded-circle bg-success"
+                      style="width: 8px; height: 8px"
+                    ></span>
+                    {{ p.status.nama_status }}
+                  </span>
+                </td>
+                <td class="text-end pe-4">
+                  <div class="btn-group">
+                    <a
+                      href="{% url 'edit' p.id_produk %}"
+                      class="btn btn-sm btn-outline-warning"
+                      title="Edit"
+                    >
+                      <i class="bi bi-pencil-square"></i>
+                    </a>
+                    <button
+                      onclick="hapusProduk('{{ p.id_produk }}', '{{ p.nama_produk|escapejs }}')"
+                      class="btn btn-sm btn-outline-danger"
+                      title="Hapus"
+                    >
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="6" class="text-center py-5">
+                  <img
+                    src="https://cdn-icons-png.flaticon.com/512/7486/7486777.png"
+                    width="100"
+                    class="mb-3 opacity-50"
+                  />
+                  <p class="text-muted">
+                    Belum ada data produk yang bisa dijual.
+                  </p>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3 text-muted small text-end">
+      Total Data: <strong>{{ produk_list.count }}</strong> Produk
+    </div>
+  </div>
+</div>
+
+{% endblock %} {% block scripts %}
+<script>
+  // Fungsi SweetAlert untuk Konfirmasi Hapus
+  function hapusProduk(id, nama) {
+    Swal.fire({
+      title: "Hapus Produk?",
+      text: 'Anda akan menghapus "' + nama + '". Data tidak bisa dikembalikan!',
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#dc3545",
+      cancelButtonColor: "#6c757d",
+      confirmButtonText: "Ya, Hapus!",
+      cancelButtonText: "Batal",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Redirect ke URL hapus jika user klik Ya
+        window.location.href = "/hapus/" + id + "/";
+      }
+    });
+  }
+</script>
+{% endblock %}
