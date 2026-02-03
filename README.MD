@@ -106,6 +106,10 @@ python manage.py import_data
 python manage.py runserver
 ```
 
+### Link Video Demo :
+
+https://drive.google.com/file/d/151ajamhA4RvtwLeX3nEHISu313xQNYu6/view?usp=sharing
+
 👤 Author
 Hannes Tigor Hamonangan Sinaga
 LinkedIn: https://www.linkedin.com/in/hannessinaga/
